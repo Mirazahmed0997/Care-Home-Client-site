@@ -1,5 +1,5 @@
 import React from 'react';
-
+import footer from '../../../assets/images/footer.png'
 const Footer = () => {
     return (
         <footer className="footer p-10 bg-neutral text-neutral-content">
