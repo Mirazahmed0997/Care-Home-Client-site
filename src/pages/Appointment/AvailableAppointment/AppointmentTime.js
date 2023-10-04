@@ -1,7 +1,7 @@
 import React from 'react';
 
-const AppointmentTime = ({ availableSlot,sertService }) => {
-    const { name, slots } = availableSlot
+const AppointmentTime = ({ avilableSlots,sertService }) => {
+    const { name, slots } = avilableSlots
     return (
         <div className="card shadow-xl text-center">
             <div className="card-body ">
@@ -13,10 +13,10 @@ const AppointmentTime = ({ availableSlot,sertService }) => {
                    }
                 </p>
                 <p>
-                    {slots.length} {slots.length>1 ? 'slots' : 'slot'} Available
+                    {slots.length} {avilableSlots.length>1 ? 'slots' : 'slot'} Available
                 </p>
                 <div className="card-actions justify-center ">
-                    <label onClick={()=>sertService(availableSlot)}  htmlFor="my_modal_6" className="btn btn-primary">Get Appointment</label>
+                    <label disabled={avilableSlots.length==0} onClick={()=>sertService(avilableSlots)}  htmlFor="my_modal_6" className="btn btn-primary">Get Appointment</label>
 
                 </div>
             </div>

@@ -22,7 +22,7 @@ const Header = () => {
                  {menuItems}        
             </ul>
           </div>
-          <div flex flex-row-reverse text-end>
+          <div className='flex flex-row-reverse text-end' >
           <Link to='/home' className="btn btn-ghost normal-case text-xl "><img className='w-16 ps-5' src={logo1} alt="" /></Link>
           {/* <Link to='/home' className="btn btn-ghost normal-case text-xl ">Care Home</Link> */}
           </div>

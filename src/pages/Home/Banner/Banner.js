@@ -5,7 +5,7 @@ import PromaryBtn from '../../../Components/PrimaryButton/PromaryBtn';
 const Banner = () => {
     return (
         <div className="hero text-black m-6">
-        <div className="hero-content flex-col lg:flex-row-reverse">
+        <div  className="flex hero-content  flex-col lg:flex-row-reverse">
           <img src={img1} className="lg:w-1/3 rounded-lg shadow-2xl" />
           <div>
             <h1 className="text-5xl font-bold">Consult Doctors From Home</h1>

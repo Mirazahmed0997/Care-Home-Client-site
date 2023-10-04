@@ -8,7 +8,7 @@ const AppointmentBanner = ({selectedDate,setSelectedDate}) => {
     return (
         <header>
             <div className="hero">
-                <div className="hero-content flex-col lg:flex-row-reverse gap-6">
+                <div className="hero-content flex flex-col lg:flex-row-reverse gap-6">
                     <img src={appointPic} className="lg:w-1/2 max-w-sm rounded-lg shadow-2xl" />
                 
                 <div className='w-1/2 m-20'>
