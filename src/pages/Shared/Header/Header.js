@@ -1,15 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../../assets/icons/logo4.jpg'
 import logo1 from '../../../assets/images/fluoride.png'
+import { AuthContext } from '../../../Context/AuthProvider';
 
 const Header = () => {
+  const {user,logOut}=useContext(AuthContext)
     const menuItems=<React.Fragment>
             <li><Link to='/home'>Home</Link ></li>
             <li><Link to='/about'>About</Link ></li>
             <li><Link to='/appointment'>Appointment</Link ></li>
-            <li><Link to='/reviews'>Reviews</Link ></li>
-            <li><Link to='/login'>Login</Link ></li>
+            <li><Link to='/reviews'>Reviews</Link></li>
+            <span className='span'>{user?.displayName}</span>
+                { user?.uid?
+                  <>
+                 <li> <Link to='/dashboard'>Dashboard</Link></li>
+                  <li><Link className='' onClick={logOut}>Logout</Link></li>
+                  </>
+                  :
+                  <li><Link to='/login'>Login</Link></li>
+                }
     </React.Fragment>
     return (
         <div className="navbar bg-neutral-200 flex justify-between text-black font-semibold">
