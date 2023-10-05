@@ -24,6 +24,8 @@ const SignUp = () => {
             return;
         }
         console.log(data)
+
+
         createUser(data.email,data.password)
         .then(result=>{
             const user=result.user;
@@ -95,7 +97,7 @@ const SignUp = () => {
                  className="input input-bordered w-full max-w-xs"/>
                  {errors.confirmPassword && <p className='text-red-500'>{errors.confirmPassword.message}</p>}
              </div>     
-             <input className='btn btn-accent w-full mt-6' value='Login' type="submit" />
+             <input className='btn btn-accent w-full mt-6' value='Sign up' type="submit" />
              {
             success?<small className='text-success'>User successfully created</small>:
             <small className='text-error'>{SignUpError && <p>{SignUpError}</p>}</small> 

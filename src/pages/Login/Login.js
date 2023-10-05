@@ -2,15 +2,39 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
+import { GoogleAuthProvider, getAuth, sendPasswordResetEmail } from 'firebase/auth';
+import app from '../../Firebase/firebase.config';
+
+const auth=getAuth(app)
+
 
 const Login = () => {
     const [error,setError]=useState(null)
-    const {signIn,user}= useContext(AuthContext)
+    // const [userEmail,setUserEmail]=useState('')
+    const {signIn,user,GoogleSignIn}= useContext(AuthContext)
+    const googleProvider =new GoogleAuthProvider()
     const navigate=useNavigate()
     const location=useLocation();
     const [success,setSuccess]=useState(false)
     const from= location.state?.from?.pathname || '/';
     const { register,formState:{errors}, handleSubmit } = useForm()
+
+
+    const handleGoogleSignIn=()=>
+    {
+      GoogleSignIn(googleProvider)
+      .then(result=>
+        {
+            const user=result.user
+            navigate(from,{replace:true})
+  
+  
+        })
+    
+        .catch(error=>console.error(error))
+    }
+
+
     const handleLogin=data=>
     {
         
@@ -20,8 +44,9 @@ const Login = () => {
             .then(result=>
                 {
                     const user= result.user
+                    // setUserEmail(user.email)
                     setSuccess(true)
-                    console.log(user)
+                    // console.log(user.email)
             if(user.emailVerified)
                 {
                     navigate(from,{replace:true})
@@ -39,6 +64,25 @@ const Login = () => {
     
                     })
     }
+
+    const handleBlurEmail=data=>
+    {
+        const email=data.email
+        console.log(email)
+    }
+
+    const handleForgetPass=(data)=>
+    {
+        sendPasswordResetEmail(auth,data.email)
+        .then(()=>
+        {
+            alert('Password Reset link sent, Check your email')
+        })
+        .catch(err=>{
+            console.error(err)
+        })
+    }
+
     return (
         <div className='flex justify-center items-center text-black p-6'>
            <div className='card w-96 bg-base-100 shadow-xl p-7'>
@@ -48,9 +92,9 @@ const Login = () => {
             <form onSubmit={handleSubmit(handleLogin)}>
                 <div className="form-control w-full max-w-xs">
                     <label className="label"><span className="label-text">Email</span></label>
-                    <input type="text" 
+                    <input name='email' onBlur={handleBlurEmail} type="email" 
 
-                     {...register("email",{required:"Password is required"})} 
+                     {...register("email",{required:"Email is required"})} 
                      
                      className="input input-bordered w-full max-w-xs"/>
                            {errors.email && <p className='text-red-600' role="alert">{errors.email.message}</p>}
@@ -69,14 +113,14 @@ const Login = () => {
                     className="input input-bordered w-full max-w-xs"/>
                           {errors.password && <p className='text-red-600' role="alert">{errors.password.message}</p>}
 
-                    <label className="label"><span className="label-text">Forget Password?</span></label>
+                    <label className="label"><Link onClick={handleForgetPass} className="label-text">Forget Password?</Link></label>
                 </div>   
                 <input className='btn btn-accent w-full' value='Login' type="submit" />
             </form>
             <p>Don't Have Account? <Link className='text-secondary' to='/signup'>Create new account</Link></p>
             <p className='text-error'>{error}</p>
             <div className="divider">OR</div>
-                <button className='btn btn-outline' >CONTINUE WITH GOOGLE</button>
+                <button onClick={handleGoogleSignIn} className='btn btn-outline' >CONTINUE WITH GOOGLE</button>
            </div>
         </div>
     );

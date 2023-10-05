@@ -1,7 +1,9 @@
 import { format } from 'date-fns';
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../../Context/AuthProvider';
 
 const BookingModal = ({ service, selectedDate,sertService }) => {
+    const {user}=useContext(AuthContext)
     const { name, slots } = service
     const date = format(selectedDate, 'PP')
 
@@ -43,9 +45,9 @@ const BookingModal = ({ service, selectedDate,sertService }) => {
                                 slots.map((slot,i)=><option  value={slot} key={i}> {slot}</option>)
                                }
                             </select>
-                            <input type="text" name='name' placeholder="name" className="input input-bordered bg-white w-full m-2 "required ></input>
-                            <input type="text"name='contact' placeholder="contact" className="input input-bordered bg-white w-full m-2" ></input>
-                            <input type="email" name='email' placeholder="Email" className="input input-bordered bg-white w-full m-2" ></input>
+                            <input type="text"readOnly name='name'value={user?.displayName} placeholder="name" className="input input-bordered bg-white w-full m-2 "required ></input>
+                            <input type="number"name='contact' placeholder="contact" className="input input-bordered bg-white w-full m-2"required ></input>
+                            <input type="email"readOnly name='email' value={user?.email} placeholder="Email" className="input input-bordered bg-white w-full m-2" ></input>
                             <br />
                             <input className='btn btn-accent w-full m-2' type="submit" value="Submit" ></input>
                         </form>

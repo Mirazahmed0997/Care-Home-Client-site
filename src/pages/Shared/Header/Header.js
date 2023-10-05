@@ -11,10 +11,16 @@ const Header = () => {
             <li><Link to='/about'>About</Link ></li>
             <li><Link to='/appointment'>Appointment</Link ></li>
             <li><Link to='/reviews'>Reviews</Link></li>
-            <span className='span'>{user?.displayName}</span>
+            
                 { user?.uid?
                   <>
                  <li> <Link to='/dashboard'>Dashboard</Link></li>
+                 <li><Link> {user?.displayName}</Link> </li>
+                 <div className="avatar">
+                <div className="w-10 rounded-full">
+                  <img src={user?.photoURL} />
+                </div>
+              </div>
                   <li><Link className='' onClick={logOut}>Logout</Link></li>
                   </>
                   :
