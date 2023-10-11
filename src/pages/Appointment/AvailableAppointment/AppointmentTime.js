@@ -13,11 +13,10 @@ const AppointmentTime = ({ avilableSlots,sertService }) => {
                    }
                 </p>
                 <p>
-                    {slots.length} {avilableSlots.length>1 ? 'slots' : 'slot'} Available
+                    {slots.length} {avilableSlots.length>1 ? 'slot' : 'slots'} Available (Total slots 16)
                 </p>
                 <div className="card-actions justify-center ">
                     <label disabled={avilableSlots.length==0} onClick={()=>sertService(avilableSlots)}  htmlFor="my_modal_6" className="btn btn-primary">Get Appointment</label>
-
                 </div>
             </div>
         </div>

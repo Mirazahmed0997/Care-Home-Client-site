@@ -1,8 +1,9 @@
 import { format } from 'date-fns';
 import React, { useContext } from 'react';
 import { AuthContext } from '../../../Context/AuthProvider';
+import toast from 'react-hot-toast';
 
-const BookingModal = ({ service, selectedDate,sertService }) => {
+const BookingModal = ({ service, selectedDate,sertService,refetch }) => {
     const {user}=useContext(AuthContext)
     const { name, slots } = service
     const date = format(selectedDate, 'PP')
@@ -24,11 +25,28 @@ const BookingModal = ({ service, selectedDate,sertService }) => {
             contact,
 
         }
+        fetch('http://localhost:5000/bookings',{
+            method:'POST',
+            headers:{
+                'content-type':'application/json'
+            },
+            body: JSON.stringify(booking)
+        })
+        .then(res=>res.json())
+        .then(data=>
+            {
+                console.log(data)
+                if(data.acknowledged)
+                {
+                    sertService(null)
+                    toast('Booking Confirmed')
+                    refetch();
+                }
 
-        sertService(null)
+            })
 
 
-        console.log(booking)
+
     }
 
     return (

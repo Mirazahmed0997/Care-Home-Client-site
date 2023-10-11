@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 import { getAuth, sendEmailVerification } from 'firebase/auth';
 import app from '../../Firebase/firebase.config';
@@ -12,6 +12,7 @@ const SignUp = () => {
     const {createUser,updateUser}=useContext(AuthContext)
     const[SignUpError,setSignUpError]=useState(null)
     const [success,setSuccess]=useState(false);
+    const navigate=useNavigate();
 
     const {register,formState:{errors}, handleSubmit}=useForm()
 
@@ -34,11 +35,14 @@ const SignUp = () => {
                 displayName:data.name
             }
             updateUser(userInfo)
-            .then(()=>{})
+            .then(()=>{
+
+            })
             .catch(err=>console.log(err))
             varifyEmail()
             setSuccess(true)
             return;
+            
         })
         .catch(error=>{
             setSignUpError(error.message)
@@ -104,8 +108,8 @@ const SignUp = () => {
           }  
          </form>
          <p className='mt-2'>Already Have an Account? <Link className='text-secondary ' to='/login'>Login</Link></p>
-         <div className="divider">OR</div>
-             <button className='btn btn-outline' >CONTINUE WITH GOOGLE</button>
+         {/* <div className="divider">OR</div>
+             <button className='btn btn-outline' >CONTINUE WITH GOOGLE</button> */}
         </div>
      </div>
     );

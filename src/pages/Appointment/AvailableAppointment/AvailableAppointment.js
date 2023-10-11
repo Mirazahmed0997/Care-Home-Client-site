@@ -1,18 +1,36 @@
 import { format } from 'date-fns';
-import React, { useEffect, useState } from 'react'; 
+import React, { useState } from 'react'; 
 import AppointmentTime from './AppointmentTime';
 import BookingModal from '../BookingModal/BookingModal';
+import { useQuery } from 'react-query';
+import Loading from '../../Shared/Loading/Loading';
 
 const AvailableAppointment = ({selectedDate,setSelectedDate}) => {
-    const [appointmentTime,setAppointmentTime]=useState([])
     const [service,sertService]=useState(null)
+    const date = format(selectedDate,'PP')
 
-    useEffect(()=>
+    const {data:appointmentTime=[],refetch,isLoading}=useQuery({
+        queryKey:['appointmentOptions',date],
+        queryFn:async()=>
+        {
+            const res =await fetch(`http://localhost:5000/appointmentOptions?date=${date}`)
+            const data= await res.json();
+            return data
+        }
+
+    })
+
+    if(isLoading)
     {
-        fetch('services.json')
-        .then(res=>res.json())
-        .then(data=>setAppointmentTime(data))
-    },[])
+        return<Loading></Loading>
+    }
+
+    // useEffect(()=>
+    // {
+    //     fetch('http://localhost:5000/appointmentOptions')
+    //     .then(res=>res.json())
+    //     .then(data=>setAppointmentTime(data))
+    // },[])
 
     return (
         <section className='mt-16'>
@@ -29,6 +47,7 @@ const AvailableAppointment = ({selectedDate,setSelectedDate}) => {
                 service={service}
                 selectedDate={selectedDate}
                 sertService={sertService}
+                refetch={refetch}
                 ></BookingModal>
             }
         </section>
