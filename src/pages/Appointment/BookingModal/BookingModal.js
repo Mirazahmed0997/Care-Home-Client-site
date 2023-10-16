@@ -42,6 +42,9 @@ const BookingModal = ({ service, selectedDate,sertService,refetch }) => {
                     toast('Booking Confirmed')
                     refetch();
                 }
+                else{
+                    toast.error(data.message)
+                }
 
             })
 

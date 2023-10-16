@@ -5,6 +5,7 @@ import { AuthContext } from '../../Context/AuthProvider';
 import { getAuth, sendEmailVerification } from 'firebase/auth';
 import app from '../../Firebase/firebase.config';
 import toast from 'react-hot-toast';
+import useToken from '../../Hooks/useToken';
 
 const auth=getAuth(app)
 
@@ -12,7 +13,14 @@ const SignUp = () => {
     const {createUser,updateUser}=useContext(AuthContext)
     const[SignUpError,setSignUpError]=useState(null)
     const [success,setSuccess]=useState(false);
+    const [createdUserEmail,setCreatedUserEmail]=useState(''); 
+    const [token]=useToken(createdUserEmail);
     const navigate=useNavigate();
+
+    if(token)
+    {
+        navigate('/');
+    }
 
     const {register,formState:{errors}, handleSubmit}=useForm()
 
@@ -36,6 +44,7 @@ const SignUp = () => {
             }
             updateUser(userInfo)
             .then(()=>{
+                saveUser(data.name,data.email);
 
             })
             .catch(err=>console.log(err))
@@ -49,6 +58,26 @@ const SignUp = () => {
             // console.log(err)
         })
 
+        const saveUser=(name,email)=>
+        {
+            const user={name,email};
+            fetch('http://localhost:5000/users',{
+                method:'POST',
+                headers:{
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            })
+
+            .then(res=>res.json())
+            .then(data=>{
+                console.log(data)
+                setCreatedUserEmail(email);
+
+            })
+        }
+
+
         
         const varifyEmail=()=>
             {
@@ -60,6 +89,8 @@ const SignUp = () => {
                      })
             }  
     }
+
+ 
 
     return (
         <div className='flex justify-center items-center text-black p-6'>

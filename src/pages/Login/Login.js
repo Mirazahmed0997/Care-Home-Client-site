@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
 import { GoogleAuthProvider, getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import app from '../../Firebase/firebase.config';
+import useToken from '../../Hooks/useToken';
 
 const auth=getAuth(app)
 
@@ -15,9 +16,16 @@ const Login = () => {
     const googleProvider =new GoogleAuthProvider()
     const navigate=useNavigate()
     const location=useLocation();
+    const [loginUserEmail,setLoginUserEmail]=useState('')
+    const [token]=useToken(loginUserEmail)
     const [success,setSuccess]=useState(false)
     const from= location.state?.from?.pathname || '/';
     const { register,formState:{errors}, handleSubmit } = useForm()
+
+
+    if(token){
+        navigate(from,{replace:true})
+    }
 
 
     const handleGoogleSignIn=()=>
@@ -44,17 +52,16 @@ const Login = () => {
             .then(result=>
                 {
                     const user= result.user
-                    // setUserEmail(user.email)
-                    setSuccess(true)
-                    // console.log(user.email)
-            if(user.emailVerified)
-                {
-                    navigate(from,{replace:true})
-                }
-            else
-                {
-                    alert('Email is not verified')
-                }
+                    setLoginUserEmail(data.email);
+                    // setSuccess(true)
+            // if(user.emailVerified && token)
+            //     {
+            //         navigate(from,{replace:true})
+            //     }
+            // else
+            //     {
+            //         alert('Email is not verified')
+            //     }
         
                 })
                 .catch(error=>
