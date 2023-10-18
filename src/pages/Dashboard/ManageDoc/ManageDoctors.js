@@ -59,7 +59,7 @@ const ManageDoctors = () => {
 
 
     return (
-        <div>
+        <div className=''>
             <div className="overflow-x-auto">
                 <table className="table ">
                     <thead>

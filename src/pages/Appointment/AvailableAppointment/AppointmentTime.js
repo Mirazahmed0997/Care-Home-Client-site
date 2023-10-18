@@ -1,7 +1,7 @@
 import React from 'react';
 
 const AppointmentTime = ({ avilableSlots,sertService }) => {
-    const { name, slots } = avilableSlots
+    const { name, slots,price } = avilableSlots
     return (
         <div className="card shadow-xl text-center">
             <div className="card-body ">
@@ -15,6 +15,7 @@ const AppointmentTime = ({ avilableSlots,sertService }) => {
                 <p>
                     {slots.length} {avilableSlots.length>1 ? 'slot' : 'slots'} Available (Total slots 16)
                 </p>
+                <p>Fees: {price}BDT</p>
                 <div className="card-actions justify-center ">
                     <label disabled={avilableSlots.length==0} onClick={()=>sertService(avilableSlots)}  htmlFor="my_modal_6" className="btn btn-primary">Get Appointment</label>
                 </div>
