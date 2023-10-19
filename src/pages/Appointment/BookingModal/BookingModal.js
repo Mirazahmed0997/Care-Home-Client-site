@@ -26,7 +26,7 @@ const BookingModal = ({ service, selectedDate,sertService,refetch }) => {
             price
 
         }
-        fetch('http://localhost:5000/bookings',{
+        fetch('https://care-home-server-site-qhfxnw12d-mirazahmed0997.vercel.app/bookings',{
             method:'POST',
             headers:{
                 'content-type':'application/json'

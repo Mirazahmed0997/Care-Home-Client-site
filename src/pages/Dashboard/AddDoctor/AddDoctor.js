@@ -14,7 +14,7 @@ const AddDoctor = () => {
     const {data:specialities,isLoading}=useQuery({
         queryKey:['speciality'],
         queryFn: async()=>{
-           const res= await fetch('http://localhost:5000/appointmentSpeciality')
+           const res= await fetch('https://care-home-server-site-qhfxnw12d-mirazahmed0997.vercel.app/appointmentSpeciality')
            const data=await res.json();
            return data;
         }
@@ -41,7 +41,7 @@ const AddDoctor = () => {
                 }
 
                 //send doctors info to DB
-                fetch('http://localhost:5000/doctors',{
+                fetch('https://care-home-server-site-qhfxnw12d-mirazahmed0997.vercel.app/doctors',{
                     method:'POST',
                     headers:{
                         'content-type':'application/json',

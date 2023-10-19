@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const MyAppointment = () => {
 
     const {user}=useContext(AuthContext)
-    const url=`http://localhost:5000/bookings?email=${user?.email}`
+    const url=`https://care-home-server-site-qhfxnw12d-mirazahmed0997.vercel.app/bookings?email=${user?.email}`
     const {data:bookings=[]}= useQuery({
         queryKey:['bookings',user?.email],
         queryFn:async()=>{
@@ -50,7 +50,7 @@ const MyAppointment = () => {
             booking.price && !booking.paid && <Link to={`/dashboard/payment/${booking._id}`}><button className='btn btn-primary btn-sm'>pay now</button></Link>
           }
           {
-            booking.price && booking.paid && <span className='text-primary'>Paid</span>
+            booking.price && booking.paid && <span className='btn btn-sm btn-primary'>Paid</span>
           }
         </td>
 

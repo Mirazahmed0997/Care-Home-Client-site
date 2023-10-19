@@ -5,11 +5,14 @@ import { AuthContext } from '../../../Context/AuthProvider';
 const DisplayError = () => {
     const {logOut}=useContext(AuthContext)
     const error= useRouteError();
+    const navigate=navigate();
 
     const handleLogOut=()=>
     {
         logOut()
-        .then(()=>{})
+        .then(()=>{
+            navigate('/login')
+        })
         .catch(err=>console.error(err))
     }
 

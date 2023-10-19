@@ -13,7 +13,9 @@ const DashboardLayout = () => {
             <div className="drawer lg:drawer-open">
                 <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content flex flex-col text-black ">
+                    <label htmlFor="dashboard-drawer" tabIndex={2} className="btn btn-primary lg:hidden">Tab Here</label>
                     <Outlet></Outlet>
+                   
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="dashboard-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
