@@ -31,8 +31,8 @@ const MyAppointment = () => {
         <th>Name</th>
         <th>Treatment</th>
         <th>Date</th>
-        <th>Time</th>
         <th>Fees</th>
+        <th></th>
 
       </tr>
     </thead>

@@ -7,14 +7,14 @@ const CheckOutForm = ({ booking }) => {
     const elements = useElements();
     const [cardError, setCardError] = useState('')
     const [clientSecret, setClientSecret] = useState('');
-    const [isLoading, setIsLoading] = useState(true)
+    // const [isLoading, setIsLoading] = useState(true)
     const { price,email,patient } = booking
 
 
 
 
     useEffect(() => {
-        setIsLoading(true)
+        // setIsLoading(true)
         fetch("http://localhost:5000/create-payment-intent", {
             method: "POST",
             headers: {
@@ -26,7 +26,7 @@ const CheckOutForm = ({ booking }) => {
             .then((res) => res.json())
             .then((data) => {
                 setClientSecret(data.clientSecret)
-                setIsLoading(false)
+                // setIsLoading(false)
             });
     }, [price]);
 
@@ -43,6 +43,7 @@ const CheckOutForm = ({ booking }) => {
         }
 
         const card = elements.getElement(CardElement);
+
         if (card == null) {
             return;
         }
@@ -79,7 +80,7 @@ const CheckOutForm = ({ booking }) => {
     return (
         <>
 
-            <form className='' onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <CardElement
                     options={{
                         style: {
